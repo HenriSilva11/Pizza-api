@@ -1,12 +1,9 @@
-import mysql2 from 'mysql2/promise'
+import express from 'express';
+import endpoints from './controller/pizzariaControler.js';
 
-const conn = await mysql2.createConnection({
-    host:process.env.HOST,
-    database:process.env.BD,
-    user:process.env.USER,
-    password:process.env.PWD
-})
+const server = express();
 
-console.log("API conectada");
+server.use(express.json());
+server.use(endpoints);
 
-export default conn;
+server.listen(process.env.PORT, () => console.log("Api subiu na porta " + process.env.PORT));
